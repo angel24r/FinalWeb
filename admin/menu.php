@@ -18,7 +18,10 @@ if(!isset($_SESSION['nombre']))
         <a class="nav-link" href="productos.php">Productos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="cotizar.php">Usuarios</a>
+        <a class="nav-link" href="Usuarios.php">Usuarios</a>
+      </li> 
+      <li class="nav-item">
+        <a class="nav-link" href="categoria.php">Categorias</a>
       </li>       
       <li class="nav-item">
         <a class="nav-link" href="../index.php">Salir</a>       

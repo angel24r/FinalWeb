@@ -95,7 +95,7 @@ function pre_r($array)
         <td><?php echo $product['Cantidad'];?></td>
         <td><?php echo ("$".number_format($product['Cantidad'] * $product['Precio'],2));?></td>
         <td class="text-center"><a href="tabla.php?action=delete&id=<?php echo $product['Id']?>">
-              <input type="image" src="../imagenes/delete.png">              
+              <input type="image" src="../resources/delete.png">              
             </a>
         </td>
     </tr>

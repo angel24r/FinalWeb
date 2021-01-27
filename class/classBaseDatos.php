@@ -120,7 +120,7 @@ class BaseDatos
                         </div>  
                         <div style="text-align:center">
                         <a href=productos.php>
-                          <button type="submit" name="regresar" style="" class="btn btn-dark my-3">Regresar</button> </a> 
+                          <button type="submit" name="regresar" class="btn btn-dark my-3">Regresar</button> </a> 
                         </div>                                       
                         </div>
                                               
@@ -129,6 +129,83 @@ class BaseDatos
           return $resulta;
           
         }
+        function categoria($query)
+        {
+          $registros=$this->consulta($query);
+          $res='';
+          $columnas=mysqli_num_fields($registros);
+          
+          
+          if(mysqli_num_rows($registros)>0)
+          {      
+            $res='<select id="cars" name="cars">';    
+            while($pro=mysqli_fetch_assoc($registros))
+            {
+              $res.='<option value="'.$pro['IdCategoria'].'">'.$pro['Nombre'].'</option>';
+            }
+          }
+            $res.='</select>';
+            return $res;
+          
+        }
+        function desplegarTabla($query,$iconos=array())
+        {
+          $result='';
+          $registros=$this->consulta($query);
+          $columnas=mysqli_num_fields($registros);
+          $countatabla=0;
+          $result.='<table class="table table-hover">
+                    <tr><thead>';
+          for ($c=0; $c < $columnas; $c++)
+          {
+            $campo=mysqli_fetch_field_direct($registros,$c);
+            if(isset($anchos[$countatabla])){
+            }else{$anchos[$countatabla]="100";}
+            $result.='<td>'.$campo->name.'</td>';
+            $countatabla++;
+          }
+          if(count($iconos)){            
+                $result.='<td colspan="'.count($iconos).'">';
+          }
+          $result.='</tr></thead>
+                    <tbody>';
+          for ($r=0; $r < $this->numeRegistros; $r++){ 
+            $id=$r+1;
+            $result.='<tr>';
+            $campos=mysqli_fetch_array($registros);
+            for ($c=0; $c < $columnas; $c++){ 
+              $result.='<td>'.$campos[$c].'</td>';
+            }
+              if(in_array("update",$iconos)){
+                $result.='<td>
+                <form method="post">
+                    <input type="hidden" name="Id" value="'.$campos[0].'"/>
+                    <input type="hidden" name="accion" value="formUpdate"/>
+                    <input type="image" src="../resources/update.png">
+                </form>
+                </td>';
+            }
+            
+            if(in_array("delete",$iconos))
+            { 
+                $result.='<td>
+                <form method="post">
+                    <input type="hidden" name="Id" value="'.$campos[0].'"/>
+                    <input type="hidden" name="accion" value="delete"/>
+                    <input type="image" src="../resources/delete.png"
+                    onClick="return confirm(\'Estas seguro?\')">
+                </form>
+                </td>';
+            }
+            
+          }
+          $result.='</tr>';
+
+          $result.='</tbody>';
+
+          return $result;
+        }
+
 }
 $oBD=new BaseDatos();
 ?>
