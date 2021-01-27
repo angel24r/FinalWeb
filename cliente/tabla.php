@@ -1,9 +1,8 @@
-<?php 
+<?php
 include "header.php";	
 
-
 include "../class/classBaseDatos.php";
-echo $oBD->lista("SELECT * from productos",2);
+
 $product_ids = array();
 $arra= array();
 if(filter_input(INPUT_POST,'addtocart'))
@@ -31,7 +30,7 @@ if(filter_input(INPUT_POST,'addtocart'))
       for ($i=0; $i < count($arra) ; $i++) { 
         if($arra[$i]==filter_input(INPUT_GET,'id'))
         {
-        
+         
           $_SESSION['carro'][$i]['Cantidad']+=filter_input (INPUT_POST,'cant');        
         }
         
@@ -95,7 +94,7 @@ function pre_r($array)
         <td><?php echo ("$".$product['Precio']);?></td>
         <td><?php echo $product['Cantidad'];?></td>
         <td><?php echo ("$".number_format($product['Cantidad'] * $product['Precio'],2));?></td>
-        <td class="text-center"><a href="cotizar.php?action=delete&id=<?php echo $product['Id']?>">
+        <td class="text-center"><a href="tabla.php?action=delete&id=<?php echo $product['Id']?>">
               <input type="image" src="../imagenes/delete.png">              
             </a>
         </td>
@@ -110,11 +109,12 @@ function pre_r($array)
         <td></td>
     </tr>
     <tr>
-      <td colspan="6">
+      <td colspan="6" style="text-align:right;">
       <?php
         if(isset($_SESSION['carro'])):
         if(count($_SESSION['carro'])>0):
-      ?>      
+      ?>
+      <a href="#"><h5 style="text-color:black;">IMPRIMIR  <img src="../Imagenes/impresora.png"></h5></a>
       <?php endif; endif;?>
       </td>
       </tr>

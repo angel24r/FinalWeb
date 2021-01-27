@@ -4,7 +4,7 @@ if(!isset($_SESSION['nombre']))
     header("location: ../index.php");
 ?>
 <nav class="navbar navbar-expand-lg navbar-dark bg-primary" style="width: 100%;">
-  <a class="navbar-brand"  href="home.php">
+  <a class="navbar-brand"  href="#">
    <img src="../resources/logo.png" style="width: 10vh;" >
     Manualidades Martha
   </a>
@@ -18,11 +18,8 @@ if(!isset($_SESSION['nombre']))
         <a class="nav-link" href="productos.php">Productos</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" href="cotizar.php">Cotizar</a>
-      </li>
-      <li class="nav-item">
-        <a class="nav-link" href="tabla.php">Carrito</a>       
-      </li>    
+        <a class="nav-link" href="cotizar.php">Usuarios</a>
+      </li>       
       <li class="nav-item">
         <a class="nav-link" href="../index.php">Salir</a>       
       </li>      

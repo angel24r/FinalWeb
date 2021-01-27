@@ -23,7 +23,7 @@ $conexion=mysqli_connect("localhost","root","","tienda");
     $tipo=$_SESSION['tipo'];
     switch ($tipo) {
       case 1:
-        header("location: registro.php");
+        header("location: admin/productos.php");
         break;
       
       default:

@@ -53,14 +53,22 @@ class BaseDatos
                         <div class="row text-center py-5">';      
             while($product=mysqli_fetch_assoc($registros))
             {
-              $result.='<div class="col-sm-6 col-md-3 my-2 " style="border 1px; ">
-                              <form method="POST" action="../cliente/detalleP.php?id='.$product['IdProducto'].'">
-                                <div class="card shadow">
+              $result.='<div class="col-sm-6 col-md-3 my-2 " style="border 1px; ">';
+              switch ($opcion) {
+                case 1:
+                  $result.='<form method="post" action="../cliente/detalleP.php?id='.$product['IdProducto'].'">';
+                  break;                  
+                  default:
+                  $result.='<form method="post" action="../cliente/cotizar.php?action=add&id='.$product['IdProducto'].'">';
+                  break;
+                }
+                      
+                $result.='<div class="card shadow">
                                   <div>
                                     <img src="../imagenes/'.$product['IdProducto'].'.'.$product['Foto'].'" class="img-fluid card-img-top" style="width: 100%; height: 300px; object-fit: cover;">
                                   </div>
                                   <div class="card-body">
-                                    <h4 class="card-title" name="nam" >'.$product['Nombre'].'</h4>
+                                    <h4 class="card-title">'.$product['Nombre'].'</h4>
                                     <p>Precio: $'.$product['Precio'].' c/u</p>';
                      switch ($opcion) {
                        case 1:
@@ -68,8 +76,11 @@ class BaseDatos
                          break;
                        
                        default:
-                         $result.='<input class="text-center" type="number" value="0"/><br>
-                                  <button type="submit" name="descrip" id="'.$product['IdProducto'].'" class="btn btn-dark my-3">Agregar</button>';
+                         $result.='<input type="text" class="text-center" name="cant"  value="1"/><br>
+                                  <input  type="hidden" name="nam" value="'.$product['Nombre'].'"/>
+                                  <input  type="hidden" name="price" value="'.$product['Precio'].'"/>
+                                  <input  type="hidden" name="descrip" value="'.$product['Descripcion'].'"/>
+                                  <input type="submit" name="addtocart" id="'.$product['IdProducto'].'" class="btn btn-dark my-3" value="Agregar"/>';
                          break;
                      }               
                                 
@@ -110,8 +121,7 @@ class BaseDatos
                         <div style="text-align:center">
                         <a href=productos.php>
                           <button type="submit" name="regresar" style="" class="btn btn-dark my-3">Regresar</button> </a> 
-                        </div>
-                                       
+                        </div>                                       
                         </div>
                                               
                       </div>
@@ -122,3 +132,5 @@ class BaseDatos
 }
 $oBD=new BaseDatos();
 ?>
+
+
