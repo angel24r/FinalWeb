@@ -2,8 +2,17 @@
 include "header.php";	
 
 
-include "../class/classBaseDatos.php";
-echo $oBD->lista("SELECT * from productos",2);
+include "../class/classBaseDatos.php";?>
+<div class="container">
+  <H1 style="text-align:center;">Cotiza</H1>
+  <div>
+    <div style="text-align:center;">
+      <?php echo $oBD->categoriaP("SELECT * from categoria");?>
+    </div>
+  </div>
+  </div>
+<?php
+echo $oBD->lista("SELECT p.IdProducto,p.Nombre,p.Descripcion,p.Precio,p.Foto,(c.Nombre)as Categoria from productos p join categoria c on p.IdCategoria=c.IdCategoria",2);
 $product_ids = array();
 $arra= array();
 if(filter_input(INPUT_POST,'addtocart'))
@@ -37,6 +46,12 @@ if(filter_input(INPUT_POST,'addtocart'))
         
       }
     }
+    $idP=$_SESSION['carro'][$count-1]['Id'];
+    $tot=number_format(($_SESSION['carro'][$count-1]['Cantidad'])*($_SESSION['carro'][$count-1]['Precio']));
+    $can=$_SESSION['carro'][$count-1]['Cantidad'];
+    $idU=$_SESSION['Id'];
+    //echo $tot;  
+   //  $oBD->consulta("INSERT INTO genera(IdProducto,Precio,Cantidad,idUsuario) VALUES('$idP','$tot','$can','$idU')"); //;
   }
   else
   {
@@ -48,8 +63,19 @@ if(filter_input(INPUT_POST,'addtocart'))
         'Precio' => filter_input(INPUT_POST,'price'),
         'Cantidad' => filter_input(INPUT_POST,'cant')
            
-      );
-  }      
+      );  
+      $idP=$_SESSION['carro'][0]['Id'];    
+    $can=$_SESSION['carro'][0]['Cantidad'];
+    $idU=$_SESSION['Id'];  
+
+       $tot=number_format(($_SESSION['carro'][0]['Cantidad'])*($_SESSION['carro'][0]['Precio']),2);
+    // $oBD->consulta("INSERT INTO genera(IdProducto,Precio,Cantidad,idUsuario) VALUES('$idP','$tot','$can','$idU')");
+    //echo $tot;
+  } 
+  $fecha=(date("Y-m-d")); 
+  $id=$_SESSION['Id'];
+  //INSERT INTO pedido(Fecha,IdUsuario) VALUES('$fecha','$id');
+  //
 }
 //print_r($_SESSION);
 
@@ -122,3 +148,4 @@ function pre_r($array)
   </table>
 </div>
 </div>
+<?php include "../footer.php"?>

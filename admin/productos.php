@@ -5,9 +5,9 @@
   if(isset($_POST['accion'])){
     switch($_POST['accion']){
         case 'delete':          
-            $oBD->consulta("DELETE from productos where IdProducto=".$_POST['Id']);            
-            //echo 'borrando';
-        break;        
+            $oBD->consulta("DELETE from productos where IdProducto=".$_POST['Id']);           
+            
+				break; 				   
     }
   }
 ?>
@@ -39,7 +39,8 @@
 			</div>
 		</div>
 		<div class="col-md-8">
-			<?php echo $oBD->desplegarTabla("SELECT p.IdProducto,p.Nombre,p.Descripcion,p.Precio,p.Foto,(c.Nombre)as Categoria from productos p join categoria c on p.IdCategoria=c.IdCategoria",array("update","delete"));?>
+			<?php echo $oBD->desplegarTabla("SELECT p.IdProducto,p.Nombre,p.Descripcion,p.Precio,p.Foto,(c.Nombre)as Categoria from productos p join categoria c on p.IdCategoria=c.IdCategoria",array("update","delete","image"));?>
 		</div>		
 	</div>
 </div>
+<script src="../JS/productos.js"></script>

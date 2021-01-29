@@ -1,7 +1,7 @@
 <?php 
 session_start();
 
-$conexion=mysqli_connect("localhost","root","","tienda");
+$conexion=mysqli_connect("sql3.freesqldatabase.com","sql3389609","ppqhx3xmzY","sql3389609");
 
 	if($conexion)
 {
